@@ -4,6 +4,20 @@ import numpy as np
 import io
 import matplotlib.pyplot as plt
 
+ ADD: autocrea el CSV si no existe
+import os, subprocess
+DATA_PATH = "data/b2b_talca_ficticio.csv"
+os.makedirs("data", exist_ok=True)
+if not os.path.exists(DATA_PATH):
+    try:
+        subprocess.run(["python", "make_fake_data.py"], check=True)
+    except Exception as e:
+        try:
+            subprocess.run(["python3", "make_fake_data.py"], check=True)
+        except Exception as ee:
+            st.error(f"No se pudo generar el dataset automáticamente: {ee}")
+
+
 # --------- CONFIG ----------
 st.set_page_config(page_title="B2B Dashboard (Demo)", layout="wide")
 
